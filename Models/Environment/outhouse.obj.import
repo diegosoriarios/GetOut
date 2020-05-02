@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/outhouse.obj-21be9715ab794f68a9be957b82ea9868.mesh"
+
+[deps]
+
+files=[ "res://.import/outhouse.obj-21be9715ab794f68a9be957b82ea9868.mesh" ]
+
+source_file="res://Models/Environment/outhouse.obj"
+dest_files=[ "res://.import/outhouse.obj-21be9715ab794f68a9be957b82ea9868.mesh", "res://.import/outhouse.obj-21be9715ab794f68a9be957b82ea9868.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

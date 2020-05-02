@@ -13,6 +13,10 @@ var minLookAngle: float = -90.0
 var maxLookAngle: float = 90.0
 var lookSensitivity: float = .5
 
+var attackRate : float = 0.3
+var lastAttackTime : int = 0
+var damage : int = 1
+
 onready var muzzle = get_node("Camera/shotgun/Muzzle")
 onready var bulletScene = preload("res://Bullet.tscn")
 onready var ui : Node = get_node("/root/MainScene/CanvasLayer/UI")
@@ -21,6 +25,7 @@ var vel: Vector3 = Vector3()
 var mouseDelta: Vector2 = Vector2()
 
 onready var camera = get_node("Camera")
+var weapon: int = 0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -41,8 +46,16 @@ func _process(delta):
 	
 	mouseDelta = Vector2()
 	
-	if Input.is_action_just_pressed("shoot") and ammo > 0:
-		shoot()
+	if weapon == 0:
+		$Camera/shotgun.visible = true
+		$Camera/Spatial.visible = false
+		if Input.is_action_just_pressed("shoot") and ammo > 0:
+			shoot()
+	elif weapon == 1:
+		$Camera/shotgun.visible = false
+		$Camera/Spatial.visible = true
+		if Input.is_action_just_pressed("shoot") and ammo > 0:
+			try_attack()
 
 func _physics_process(delta):
 	vel.x = 0
@@ -63,6 +76,11 @@ func _physics_process(delta):
 		input.x -= 1
 	if Input.is_action_pressed("move_right"):
 		input.x += 1
+	
+	if Input.is_action_just_pressed("axe"):
+		weapon = 1
+	if Input.is_action_just_pressed("gun"):
+		weapon = 0
 	
 	input = input.normalized()
 	
@@ -115,3 +133,16 @@ func add_ammo(amount):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$Camera/AnimationPlayer.stop()
+
+func try_attack():
+	if OS.get_ticks_msec() - lastAttackTime < attackRate * 1000:
+		return
+	lastAttackTime = OS.get_ticks_msec()
+	
+	# play the animation
+	$Camera/Spatial/axeAnim.stop()
+	$Camera/Spatial/axeAnim.play("Attack")
+	
+	if $Camera/AttackRaycast.is_colliding():
+		if $Camera/AttackRaycast.get_collider().has_method("take_damage"):
+			$Camera/AttackRaycast.get_collider().take_damage(damage)

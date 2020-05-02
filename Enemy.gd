@@ -27,6 +27,7 @@ func _physics_process(delta):
 
 func take_damage(damage):
 	health -= damage
+	print("Health" + str(health))
 	
 	if health <= 0:
 		die()

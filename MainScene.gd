@@ -1,8 +1,8 @@
 extends Spatial
 
 onready var material = preload("res://Wood.tres")
-
 onready var Enemy = preload("res://enemy.tscn")
+
 func _ready():
 	randomize()
 	for i in $Node/House.get_surface_material_count():
