@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Hot_Air_Balloon_01.obj-5250d43a386480556fe6166cda61be7a.mesh"
+
+[deps]
+
+files=[ "res://.import/Hot_Air_Balloon_01.obj-5250d43a386480556fe6166cda61be7a.mesh" ]
+
+source_file="res://Models/Environment/Hot_Air_Balloon_01.obj"
+dest_files=[ "res://.import/Hot_Air_Balloon_01.obj-5250d43a386480556fe6166cda61be7a.mesh", "res://.import/Hot_Air_Balloon_01.obj-5250d43a386480556fe6166cda61be7a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -95,4 +95,9 @@ anims/Attack = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, -0.298203, -0.69511 )
 enabled = true
 cast_to = Vector3( 0, 0, -1 )
+
+[node name="Interact" type="RayCast" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2.2702, 0, -0.648559, -0.69511 )
+enabled = true
+cast_to = Vector3( 0, 0, -1 )
 [connection signal="animation_finished" from="Camera/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

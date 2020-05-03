@@ -13,6 +13,9 @@ onready var player : Node = get_node("/root/MainScene/Player")
 onready var timer : Timer = get_node("Timer")
 onready var Bullets = preload("res://PickupBullets.tscn")
 onready var Health = preload("res://PickupHealth.tscn")
+onready var Explosion = preload("res://Explosion.tscn")
+
+export var type = 0
 
 func _ready():
 	randomize()
@@ -33,6 +36,10 @@ func take_damage(damage):
 		die()
 
 func die():
+	if type == 1:
+		var explosion = Explosion.instance()
+		explosion.global_transform = global_transform
+		get_parent().add_child(explosion)
 	player.add_score(scoreToGive)
 	var random = rand_range(0, 2)
 	if int(random) == 0:

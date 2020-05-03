@@ -16,6 +16,7 @@ var lookSensitivity: float = .5
 var attackRate : float = 0.3
 var lastAttackTime : int = 0
 var damage : int = 1
+var interact: bool = false
 
 onready var muzzle = get_node("Camera/shotgun/Muzzle")
 onready var bulletScene = preload("res://Bullet.tscn")
@@ -49,13 +50,16 @@ func _process(delta):
 	if weapon == 0:
 		$Camera/shotgun.visible = true
 		$Camera/Spatial.visible = false
-		if Input.is_action_just_pressed("shoot") and ammo > 0:
+		if Input.is_action_just_pressed("shoot") and ammo > 0 and !interact:
 			shoot()
 	elif weapon == 1:
 		$Camera/shotgun.visible = false
 		$Camera/Spatial.visible = true
-		if Input.is_action_just_pressed("shoot") and ammo > 0:
+		if Input.is_action_just_pressed("shoot") and ammo > 0 and !interact:
 			try_attack()
+	
+	if Input.is_action_just_pressed("shoot") and interact:
+		pass
 
 func _physics_process(delta):
 	vel.x = 0
@@ -96,6 +100,15 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("jump") and is_on_floor():
 		vel.y = jumpForce
+	
+	if $Camera/Interact.is_colliding():
+		var collider = $Camera/Interact.get_collider()
+		if collider.is_in_group("interactive"):
+			interact = true
+			ui.update_description_text(collider.name)
+		else:
+			interact = false
+			ui.update_description_text("")
 
 func shoot():
 	var bullet = bulletScene.instance()

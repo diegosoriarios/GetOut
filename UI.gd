@@ -9,3 +9,6 @@ func update_ammo_text(ammo):
 
 func update_score_text(score):
 	$ScoreText.text = "Score: " + str(score)
+
+func update_description_text(text):
+	$Description.text = text
