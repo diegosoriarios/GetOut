@@ -92,7 +92,7 @@ transform = Transform( 1.5, 0, 0, 0, 0.656121, -1.79852, 0, 1.34889, 0.874828, 0
 anims/Attack = SubResource( 3 )
 
 [node name="AttackRaycast" type="RayCast" parent="Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, -0.298203, -0.69511 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2, 0, -0.298203, -0.69511 )
 enabled = true
 cast_to = Vector3( 0, 0, -1 )
 

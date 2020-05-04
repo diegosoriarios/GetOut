@@ -1,0 +1,134 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Models/Environment/Hot_Air_Balloon_01.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Shop.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Balloon"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hot_Air_Balloon_01:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1.1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.235599, 0 ), Vector3( 0, 0.571164, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[node name="Shop" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Hot_Air_Balloon_01" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Balloon = SubResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21338, 4.97476 )
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -16.0
+margin_top = -95.0
+margin_right = 33.0
+margin_bottom = -75.0
+text = "Voltar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI"]
+margin_left = 426.0
+margin_top = 55.0
+margin_right = 593.0
+margin_bottom = 69.0
+text = "O que quer comprar hoje?"
+
+[node name="Grid" type="HBoxContainer" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.5
+margin_top = -74.5
+margin_right = 201.5
+margin_bottom = 74.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="UI/Grid"]
+margin_right = 128.0
+margin_bottom = 149.0
+rect_min_size = Vector2( 100, 100 )
+texture_normal = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="UI/Grid/TextureButton"]
+margin_left = 1.0
+margin_top = 109.0
+margin_right = 126.0
+margin_bottom = 123.0
+text = "Label"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton2" type="TextureButton" parent="UI/Grid"]
+margin_left = 132.0
+margin_right = 260.0
+margin_bottom = 149.0
+rect_min_size = Vector2( 100, 100 )
+texture_normal = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="UI/Grid/TextureButton2"]
+margin_left = 1.0
+margin_top = 109.0
+margin_right = 126.0
+margin_bottom = 123.0
+text = "Label"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton3" type="TextureButton" parent="UI/Grid"]
+margin_left = 264.0
+margin_right = 392.0
+margin_bottom = 149.0
+rect_min_size = Vector2( 100, 100 )
+texture_normal = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="UI/Grid/TextureButton3"]
+margin_left = 1.0
+margin_top = 109.0
+margin_right = 126.0
+margin_bottom = 123.0
+text = "Label"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

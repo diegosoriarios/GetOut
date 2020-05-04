@@ -1,7 +1,7 @@
 extends KinematicBody
 
-var curHp: int = 10
-var maxHp: int = 10
+var curHp: int = 100
+var maxHp: int = 100
 var ammo: int = 15
 var score: int = 0
 
@@ -16,7 +16,7 @@ var lookSensitivity: float = .5
 var attackRate : float = 0.3
 var lastAttackTime : int = 0
 var damage : int = 1
-var interact: bool = false
+var interact: String = ""
 
 onready var muzzle = get_node("Camera/shotgun/Muzzle")
 onready var bulletScene = preload("res://Bullet.tscn")
@@ -28,11 +28,23 @@ var mouseDelta: Vector2 = Vector2()
 onready var camera = get_node("Camera")
 var weapon: int = 0
 
+var food = 100
+var water = 100
+var item = ""
+var temp = 25
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	ui.update_health_bar(curHp, maxHp)
 	ui.update_ammo_text(ammo)
 	ui.update_score_text(score)
+	ui.update_food(food)
+	ui.update_water(water)
+	ui.update_item(item)
+	ui.update_temperature(temp)
+	
+	ui.update_water_bar(water)
+	ui.update_food_bar(food)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -50,16 +62,38 @@ func _process(delta):
 	if weapon == 0:
 		$Camera/shotgun.visible = true
 		$Camera/Spatial.visible = false
-		if Input.is_action_just_pressed("shoot") and ammo > 0 and !interact:
+		if Input.is_action_just_pressed("shoot") and ammo > 0 and interact == "":
 			shoot()
 	elif weapon == 1:
 		$Camera/shotgun.visible = false
 		$Camera/Spatial.visible = true
-		if Input.is_action_just_pressed("shoot") and ammo > 0 and !interact:
+		if Input.is_action_just_pressed("shoot") and ammo > 0 and interact == "":
 			try_attack()
 	
-	if Input.is_action_just_pressed("shoot") and interact:
-		pass
+	if Input.is_action_just_pressed("shoot") and interact != "":
+		interact_with_object()
+	
+	water -= .005
+	ui.update_water_bar(water)
+	
+	food -= .01
+	ui.update_food_bar(food)
+	
+	temp -= .003
+	ui.update_temperature(temp)
+	
+	if water < 30:
+		curHp -= 1
+		ui.update_health_bar(curHp, maxHp)
+	if food < 30:
+		curHp -= .5
+		ui.update_health_bar(curHp, maxHp)
+	if temp < 15:
+		curHp -= 1
+		ui.update_health_bar(curHp, maxHp)
+	elif temp > 35:
+		curHp -= 1
+		ui.update_health_bar(curHp, maxHp)
 
 func _physics_process(delta):
 	vel.x = 0
@@ -104,10 +138,14 @@ func _physics_process(delta):
 	if $Camera/Interact.is_colliding():
 		var collider = $Camera/Interact.get_collider()
 		if collider.is_in_group("interactive"):
-			interact = true
-			ui.update_description_text(collider.name)
+			if collider.name == "Fogao":
+				interact = collider.name
+				ui.update_description_text("Colocar mais lenha")
+			else:	
+				interact = collider.name
+				ui.update_description_text(collider.name)
 		else:
-			interact = false
+			interact = ""
 			ui.update_description_text("")
 
 func shoot():
@@ -122,7 +160,6 @@ func shoot():
 	ui.update_ammo_text(ammo)
 
 func take_damage(damage):
-	print(damage)
 	curHp -= damage
 	
 	if curHp <= 0:
@@ -159,3 +196,20 @@ func try_attack():
 	if $Camera/AttackRaycast.is_colliding():
 		if $Camera/AttackRaycast.get_collider().has_method("take_damage"):
 			$Camera/AttackRaycast.get_collider().take_damage(damage)
+
+func interact_with_object():
+	print(interact)
+	if interact == "Comprar":
+		get_tree().change_scene("res://Shop.tscn")
+	elif interact == "Pegar":
+		if item == "":
+			item = "log"
+			ui.update_item(item)
+	elif interact == "Fogao":
+		if item == "log":
+			item = ""
+			temp += int(rand_range(1, 5))
+			ui.update_item(item)
+			ui.update_temperature(temp)
+		else:
+			ui.update_description_text("Não tem lenha suficiente")

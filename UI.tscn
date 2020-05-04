@@ -1,8 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/UI_Square.png" type="Texture" id=1]
 [ext_resource path="res://Font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://UI.gd" type="Script" id=3]
+[ext_resource path="res://Models/Items/Hand.png" type="Texture" id=4]
+[ext_resource path="res://Models/Items/Snowflake.png" type="Texture" id=5]
+[ext_resource path="res://Models/Items/Water.png" type="Texture" id=6]
+[ext_resource path="res://Models/Items/Potato.png" type="Texture" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.92549, 0.901961, 0.901961, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -16,9 +27,9 @@ __meta__ = {
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 14.1422
-margin_top = -59.799
+margin_top = -60.1526
 margin_right = 304.142
-margin_bottom = -19.799
+margin_bottom = -20.1526
 value = 50.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 1 )
@@ -66,6 +77,188 @@ margin_right = 115.5
 margin_bottom = -60.0
 custom_fonts/font = ExtResource( 2 )
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -251.433
+margin_top = -74.0
+margin_right = -35.433
+margin_bottom = -24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Potato" type="Panel" parent="HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Potato"]
+position = Vector2( 25.1023, 25.4558 )
+scale = Vector2( 0.0775105, 0.142754 )
+z_index = 1
+texture = ExtResource( 7 )
+
+[node name="Total" type="TextureProgress" parent="HBoxContainer/Potato"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+value = 50.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+fill_mode = 3
+tint_under = Color( 0, 0, 0, 1 )
+tint_progress = Color( 0.67451, 0.517647, 0.392157, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Potato"]
+margin_left = 32.8804
+margin_top = -11.3137
+margin_right = 52.8804
+margin_bottom = 8.68634
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/Potato/Panel"]
+margin_left = -0.707092
+margin_top = 0.707092
+margin_right = 21.2929
+margin_bottom = 20.7071
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Water" type="Panel" parent="HBoxContainer"]
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Water"]
+position = Vector2( 25.2791, 25.6326 )
+scale = Vector2( 0.078201, 0.0785347 )
+z_index = 1
+texture = ExtResource( 6 )
+
+[node name="Total" type="TextureProgress" parent="HBoxContainer/Water"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.353516
+margin_bottom = -0.353516
+value = 50.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+fill_mode = 3
+tint_under = Color( 0, 0, 0, 1 )
+tint_progress = Color( 0.392157, 0.509804, 0.67451, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Water"]
+margin_left = 33.0
+margin_top = -11.0
+margin_right = 53.0
+margin_bottom = 9.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/Water/Panel"]
+margin_left = -0.707092
+margin_top = 0.707092
+margin_right = 21.2929
+margin_bottom = 20.7071
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Item" type="Panel" parent="HBoxContainer"]
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Item"]
+position = Vector2( 27.9308, 25.2791 )
+scale = Vector2( 0.08, 0.08 )
+z_index = 1
+texture = ExtResource( 4 )
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Item"]
+margin_left = 32.8804
+margin_top = -11.3137
+margin_right = 52.8804
+margin_bottom = 8.68634
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/Item/Panel"]
+margin_left = -0.707092
+margin_top = 0.707092
+margin_right = 21.2929
+margin_bottom = 20.7071
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Temperature" type="Panel" parent="HBoxContainer"]
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Temperature"]
+position = Vector2( 25.4557, 26.1629 )
+scale = Vector2( 0.0481005, 0.0477454 )
+z_index = 1
+texture = ExtResource( 5 )
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Temperature"]
+margin_left = 32.8804
+margin_top = -11.3137
+margin_right = 52.8804
+margin_bottom = 8.68634
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/Temperature/Panel"]
+margin_left = -0.707092
+margin_top = 0.707092
+margin_right = 21.2929
+margin_bottom = 20.7071
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

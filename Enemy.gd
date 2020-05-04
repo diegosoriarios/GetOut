@@ -14,6 +14,8 @@ onready var timer : Timer = get_node("Timer")
 onready var Bullets = preload("res://PickupBullets.tscn")
 onready var Health = preload("res://PickupHealth.tscn")
 onready var Explosion = preload("res://Explosion.tscn")
+onready var Attack = $Zombie/AnimationPlayer
+onready var Walk = $ZombieWalking/AnimationPlayer
 
 export var type = 0
 
@@ -21,10 +23,16 @@ func _ready():
 	randomize()
 	timer.set_wait_time(attackRate)
 	timer.start()
+	
+	$ZombieWalking/AnimationPlayer.play("ArmaturemixamocomLayer0")
+	$ZombieWalking/AnimationPlayer.get_animation("ArmaturemixamocomLayer0").set_loop(true)
 
 func _physics_process(delta):
 	var dir = (player.translation - translation).normalized()
 	dir.y = 0
+	
+	$ZombieWalking.look_at(player.translation, Vector3.UP)
+	$Zombie.look_at(player.translation, Vector3.UP)
 	
 	move_and_slide(dir * moveSpeed, Vector3.UP)
 
@@ -53,6 +61,15 @@ func die():
 	queue_free()
 
 func attack():
+	$Zombie.visible = true
+	$ZombieWalking.visible = false
+	$Zombie/AnimationPlayer.play("ArmaturemixamocomLayer0")
+	yield($Zombie/AnimationPlayer, "animation_finished")
+	$Zombie.visible = false
+	$ZombieWalking.visible = true
+	$ZombieWalking/AnimationPlayer.play("ArmaturemixamocomLayer0")
+	
+	damage = int(rand_range(0, 15))
 	player.take_damage(damage)
 
 func _on_Timer_timeout():
