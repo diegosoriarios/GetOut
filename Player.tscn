@@ -26,6 +26,44 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/path = NodePath("axe:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 44.4363, -20.1067, -51.6087 ), Vector3( 55.8143, -74.8072, -95.1055 ), Vector3( 20.2363, 6.94176, -36.6171 ), Vector3( 44.436, -20.107, -51.609 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("axe:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.414565, -0.140504, -0.713422 ), Vector3( 0.414565, -0.140504, -0.713422 ), Vector3( 0.215436, -0.380197, -0.778192 ), Vector3( 0.415, -0.141, -0.713 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "try_attack"
+} ]
+}
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 3 )
@@ -40,7 +78,7 @@ environment = ExtResource( 1 )
 current = true
 
 [node name="shotgun" type="MeshInstance" parent="Camera"]
-transform = Transform( -10, 0, 1.50996e-06, 0, 10, 0, -1.50996e-06, 0, -10, 0.2, -0.2, -0.7 )
+transform = Transform( -10, 0, -8.74228e-07, 0, 10, 0, 8.74228e-07, 0, -10, 0.2, -0.2, -0.7 )
 visible = false
 mesh = ExtResource( 2 )
 material/0 = null
@@ -86,7 +124,7 @@ anims/Run = SubResource( 2 )
 [node name="Spatial" type="Spatial" parent="Camera"]
 
 [node name="axe" parent="Camera/Spatial" instance=ExtResource( 4 )]
-transform = Transform( 1.5, 0, 0, 0, 0.656121, -1.79852, 0, 1.34889, 0.874828, 0.414565, -0.140504, -0.713422 )
+transform = Transform( 1.15773, 0.93847, 0.2268, -0.839472, 1.12964, -0.691783, -0.452711, 0.305253, 1.86279, 0.215436, -0.380197, -0.778192 )
 
 [node name="axeAnim" type="AnimationPlayer" parent="Camera/Spatial"]
 anims/Attack = SubResource( 3 )

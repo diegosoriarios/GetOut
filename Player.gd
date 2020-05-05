@@ -74,7 +74,10 @@ func _process(delta):
 			$Camera/shotgun.visible = false
 			$Camera/Spatial.visible = true
 			if Input.is_action_just_pressed("shoot") and ammo > 0 and interact == "":
-				try_attack()
+				#try_attack()
+				# play the animation
+				$Camera/Spatial/axeAnim.stop()
+				$Camera/Spatial/axeAnim.play("Attack")
 		
 		if Input.is_action_just_pressed("shoot") and interact != "":
 			interact_with_object()
@@ -189,10 +192,6 @@ func try_attack():
 	if OS.get_ticks_msec() - lastAttackTime < attackRate * 1000:
 		return
 	lastAttackTime = OS.get_ticks_msec()
-	
-	# play the animation
-	$Camera/Spatial/axeAnim.stop()
-	$Camera/Spatial/axeAnim.play("Attack")
 	
 	if $Camera/AttackRaycast.is_colliding():
 		if $Camera/AttackRaycast.get_collider().has_method("take_damage"):
