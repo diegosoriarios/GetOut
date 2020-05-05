@@ -138,4 +138,7 @@ cast_to = Vector3( 0, 0, -1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2.2702, 0, -0.648559, -0.69511 )
 enabled = true
 cast_to = Vector3( 0, 0, -1 )
+
+[node name="Blood" type="Position3D" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0610948, -0.290469, -2.62099 )
 [connection signal="animation_finished" from="Camera/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -21,6 +21,7 @@ var interact: String = ""
 onready var muzzle = get_node("Camera/shotgun/Muzzle")
 onready var bulletScene = preload("res://Bullet.tscn")
 onready var ui : Node = get_node("/root/MainScene/CanvasLayer/UI")
+onready var Blood = preload("res://Blood.tscn")
 
 var vel: Vector3 = Vector3()
 var mouseDelta: Vector2 = Vector2()
@@ -196,6 +197,10 @@ func try_attack():
 	if $Camera/AttackRaycast.is_colliding():
 		if $Camera/AttackRaycast.get_collider().has_method("take_damage"):
 			$Camera/AttackRaycast.get_collider().take_damage(damage)
+			var blood = Blood.instance()
+			blood.translation = $Camera/Blood.translation
+			blood.emitting = true
+			add_child(blood)
 
 func interact_with_object():
 	print(interact)
