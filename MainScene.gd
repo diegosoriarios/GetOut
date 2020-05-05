@@ -3,7 +3,7 @@ extends Spatial
 onready var material = preload("res://Wood.tres")
 onready var Enemy = preload("res://enemy.tscn")
 onready var Balloon = preload("res://Balloon.tscn")
-var total_enemies = 1
+var total_enemies = 5  + (global.day * 5)
 var enemies = 0
 var balloon = false
 

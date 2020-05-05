@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sleep.gd" type="Script" id=1]
+
+[node name="Sleep" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1047.0
+margin_bottom = 617.0
+color = Color( 0, 0, 0, 1 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

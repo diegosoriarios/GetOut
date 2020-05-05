@@ -5,7 +5,7 @@ var vel = Vector3()
 var stop = false
 
 func _ready():
-	print('aqui')
+	pass
 
 
 func _process(delta):

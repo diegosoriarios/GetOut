@@ -132,3 +132,13 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Score" type="Label" parent="UI"]
+margin_left = 496.0
+margin_top = 83.0
+margin_right = 536.0
+margin_bottom = 97.0
+[connection signal="pressed" from="UI/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/Grid/TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="UI/Grid/TextureButton2" to="." method="_on_TextureButton2_pressed"]
+[connection signal="pressed" from="UI/Grid/TextureButton3" to="." method="_on_TextureButton3_pressed"]

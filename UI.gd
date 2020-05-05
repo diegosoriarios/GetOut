@@ -19,6 +19,7 @@ func update_food(value):
 func update_food_bar(curFood):
 	$HBoxContainer/Potato/Total.max_value = 100
 	$HBoxContainer/Potato/Total.value = curFood
+	update_food(int(curFood))
 
 func update_water(value):
 	$HBoxContainer/Water/Panel/Label.text = str(value)
