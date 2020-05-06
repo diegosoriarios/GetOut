@@ -1,7 +1,9 @@
 extends Spatial
 
 onready var material = preload("res://Wood.tres")
-onready var Enemy = preload("res://enemy.tscn")
+onready var Enemy = preload("res://Enemy.tscn")
+onready var Boomer = preload("res://Boomer.tscn")
+onready var Monster = preload("res://Monster.tscn")
 onready var Balloon = preload("res://Balloon.tscn")
 var total_enemies = 5  + (global.day * 5)
 var enemies = 0
@@ -16,9 +18,11 @@ func _ready():
 	print($Node/outhouse.get_surface_material_count())
 	for i in $Node/outhouse.get_surface_material_count() - 1:
 		$Node/House.set_surface_material(i, material)
+	
+	$CanvasLayer/UI/AnimationPlayer.play("FadeOut")
 
 func _process(delta):
-	if enemies >= total_enemies and !balloon:
+	if enemies >= total_enemies and !balloon and global.seller:
 		balloon = true
 		$Timer.stop()
 		var balloon = Balloon.instance()
@@ -35,7 +39,24 @@ func _process(delta):
 
 func _on_Timer_timeout():
 	if enemies <= total_enemies:
-		var enemy = Enemy.instance()
+		var enemy
+		if global.day > 6:
+			var random = rand_range(0, 3)
+			print(random)
+			if random > 2:
+				enemy = Boomer.instance()
+			elif random > 1:
+				enemy = Enemy.instance()
+			else:
+				enemy = Monster.instance()
+		elif global.day > 3:
+			var random = rand_range(0, 2)
+			if random > 1:
+				enemy = Enemy.instance()
+			else:
+				enemy = Monster.instance()
+		else:
+			enemy = Enemy.instance()
 		var pos = rand_range(0, 3)
 		if int(pos) == 0:
 			enemy.translation = $Position3D.translation

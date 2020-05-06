@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Models/Environment/Hot_Air_Balloon_01.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Balloon.gd" type="Script" id=2]
@@ -24,6 +24,8 @@ albedo_color = Color( 0.47451, 0.333333, 0.282353, 1 )
 [sub_resource type="BoxShape" id=7]
 extents = Vector3( 1.88071, 0.489551, 2.02334 )
 
+[sub_resource type="SphereShape" id=8]
+
 [node name="Comprar" type="KinematicBody" groups=[
 "interactive",
 ]]
@@ -41,3 +43,10 @@ material/5 = SubResource( 6 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1.34191, 0, 0, 0, 1, 0, 0, 0, 1.4408, 0, 0.506745, 0.0654455 )
 shape = SubResource( 7 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 3.56654, 0, 0, 0, 3.44223, 0, 0, 0, 3.78933, 0, 6.60472, 0 )
+shape = SubResource( 8 )
+[connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]

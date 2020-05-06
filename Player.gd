@@ -28,11 +28,7 @@ var mouseDelta: Vector2 = Vector2()
 
 onready var camera = get_node("Camera")
 var weapon: int = 0
-
-var food = 100
-var water = 100
 var item = ""
-var temp = 25
 
 var frame = 0
 var pause = false
@@ -44,12 +40,12 @@ func _ready():
 	ui.update_health_bar(curHp, maxHp)
 	ui.update_ammo_text(ammo)
 	ui.update_score_text(global.score)
-	ui.update_water(water)
+	ui.update_water(global.water)
 	ui.update_item(item)
-	ui.update_temperature(temp)
+	ui.update_temperature(global.temp)
 	
-	ui.update_water_bar(water)
-	ui.update_food_bar(food)
+	ui.update_water_bar(global.water)
+	ui.update_food_bar(global.food)
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -70,11 +66,12 @@ func _process(delta):
 			$Camera/shotgun.visible = true
 			$Camera/Spatial.visible = false
 			if Input.is_action_just_pressed("shoot") and ammo > 0 and interact == "":
-				shoot()
+				#shoot()
+				$Camera/AnimationPlayer.play("Shot")
 		elif weapon == 1:
 			$Camera/shotgun.visible = false
 			$Camera/Spatial.visible = true
-			if Input.is_action_just_pressed("shoot") and ammo > 0 and interact == "":
+			if Input.is_action_just_pressed("shoot")  and interact == "":
 				#try_attack()
 				# play the animation
 				$Camera/Spatial/axeAnim.stop()
@@ -83,16 +80,16 @@ func _process(delta):
 		if Input.is_action_just_pressed("shoot") and interact != "":
 			interact_with_object()
 		
-		water -= .005
-		ui.update_water_bar(water)
+		global.water -= .005
+		ui.update_water_bar(global.water)
 		
-		food -= .01
-		ui.update_food_bar(food)
+		global.food -= .01
+		ui.update_food_bar(global.food)
 		
-		temp -= .003
-		ui.update_temperature(temp)
+		global.temp -= .001
+		ui.update_temperature(global.temp)
 		
-		if water <= 30 or food <= 30 or temp <= 15 or temp >= 35:
+		if global.water <= 30 or global.food <= 30 or global.temp <= 15 or global.temp >= 35:
 			frame += delta * 10
 			
 			if frame > 5:
@@ -164,6 +161,7 @@ func shoot():
 	ammo -= 1
 	
 	ui.update_ammo_text(ammo)
+	
 
 func take_damage(damage):
 	curHp -= damage
@@ -215,7 +213,11 @@ func interact_with_object():
 		shop.find_node("Camera").current = true
 		get_parent().find_node("CanvasLayer").find_node("UI").visible = false
 	elif interact == "Dormir":
-		get_tree().change_scene("res://Sleep.tscn")
+		get_parent().find_node("CanvasLayer").find_node("UI").sleep()
+	elif interact == "Beber":
+		global.water += 5
+		if global.water > 100:
+			global.water = 100
 	elif interact == "Pegar":
 		if item == "":
 			item = "log"
@@ -224,9 +226,9 @@ func interact_with_object():
 	elif interact == "Fogao":
 		if item == "log":
 			item = ""
-			temp += int(rand_range(3, 6))
+			global.temp += int(rand_range(3, 6))
 			ui.update_item(item)
-			ui.update_temperature(temp)
+			ui.update_temperature(global.temp)
 		else:
 			ui.update_description_text("Não tem lenha suficiente")
 
@@ -238,8 +240,7 @@ func return_shop():
 			children.queue_free()
 			get_parent().remove_child(children)
 		if children.name == "Comprar":
-			children.queue_free()
-			get_parent().remove_child(children)
+			children.go_away()
 	interact = ""
 	ui.update_description_text("")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -247,8 +248,8 @@ func return_shop():
 	global.pause = false
 
 func add_food(value):
-	food += value
-	ui.update_food_bar(food)
+	global.food += value
+	ui.update_food_bar(global.food)
 
 func add_log(value):
 	total_logs += value

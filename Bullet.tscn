@@ -7,7 +7,9 @@
 radius = 0.03
 height = 0.07
 
-[node name="Bullet" type="Area"]
+[node name="Bullet" type="Area" groups=[
+"bullet",
+]]
 script = ExtResource( 2 )
 
 [node name="ammo_pistol" type="MeshInstance" parent="."]

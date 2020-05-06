@@ -44,3 +44,12 @@ func update_item(value):
 
 func update_temperature(value):
 	$HBoxContainer/Temperature/Panel/Label.text = str(int(value))
+
+func sleep():
+	$AnimationPlayer.play("FadeIn")
+
+func next_scene():
+	if global.day == 10:
+		get_tree().change_scene("res://Final.tscn")
+	else:
+		get_tree().change_scene("res://Sleep.tscn")

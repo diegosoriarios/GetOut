@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/PUSHILIN_pond.obj-82edbfb561cf8e21e9204d0196ab261e.mesh"
+
+[deps]
+
+files=[ "res://.import/PUSHILIN_pond.obj-82edbfb561cf8e21e9204d0196ab261e.mesh" ]
+
+source_file="res://Models/Environment/PUSHILIN_pond.obj"
+dest_files=[ "res://.import/PUSHILIN_pond.obj-82edbfb561cf8e21e9204d0196ab261e.mesh", "res://.import/PUSHILIN_pond.obj-82edbfb561cf8e21e9204d0196ab261e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

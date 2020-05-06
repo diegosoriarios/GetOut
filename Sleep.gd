@@ -5,4 +5,7 @@ func _ready():
 
 func _on_Timer_timeout():
 	global.day += 1
+	global.food -= 50
+	global.water -= 50
+	global.temp -= 5
 	get_tree().change_scene("res://MainScene.tscn")

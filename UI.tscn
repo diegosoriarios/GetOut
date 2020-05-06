@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UI/UI_Square.png" type="Texture" id=1]
 [ext_resource path="res://Font.tres" type="DynamicFont" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Models/Items/Snowflake.png" type="Texture" id=5]
 [ext_resource path="res://Models/Items/Water.png" type="Texture" id=6]
 [ext_resource path="res://Models/Items/Potato.png" type="Texture" id=7]
+[ext_resource path="res://UI/Crosshair.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.92549, 0.901961, 0.901961, 1 )
@@ -14,6 +15,50 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "next_scene"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "FadeOut"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -99,12 +144,6 @@ margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 
-[node name="Sprite" type="Sprite" parent="HBoxContainer/Potato"]
-position = Vector2( 25.1023, 25.4558 )
-scale = Vector2( 0.0775105, 0.142754 )
-z_index = 1
-texture = ExtResource( 7 )
-
 [node name="Total" type="TextureProgress" parent="HBoxContainer/Potato"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -142,17 +181,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Potato"]
+position = Vector2( 25.1023, 25.4558 )
+scale = Vector2( 0.0775105, 0.142754 )
+texture = ExtResource( 7 )
+
 [node name="Water" type="Panel" parent="HBoxContainer"]
 margin_left = 54.0
 margin_right = 104.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-
-[node name="Sprite" type="Sprite" parent="HBoxContainer/Water"]
-position = Vector2( 25.2791, 25.6326 )
-scale = Vector2( 0.078201, 0.0785347 )
-z_index = 1
-texture = ExtResource( 6 )
 
 [node name="Total" type="TextureProgress" parent="HBoxContainer/Water"]
 anchor_right = 1.0
@@ -193,17 +231,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Water"]
+position = Vector2( 25.2791, 25.6326 )
+scale = Vector2( 0.078201, 0.0785347 )
+texture = ExtResource( 6 )
+
 [node name="Item" type="Panel" parent="HBoxContainer"]
 margin_left = 108.0
 margin_right = 158.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-
-[node name="Sprite" type="Sprite" parent="HBoxContainer/Item"]
-position = Vector2( 27.9308, 25.2791 )
-scale = Vector2( 0.08, 0.08 )
-z_index = 1
-texture = ExtResource( 4 )
 
 [node name="Panel" type="Panel" parent="HBoxContainer/Item"]
 margin_left = 32.8804
@@ -228,17 +265,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Item"]
+position = Vector2( 27.9308, 25.2791 )
+scale = Vector2( 0.08, 0.08 )
+texture = ExtResource( 4 )
+
 [node name="Temperature" type="Panel" parent="HBoxContainer"]
 margin_left = 162.0
 margin_right = 212.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
-
-[node name="Sprite" type="Sprite" parent="HBoxContainer/Temperature"]
-position = Vector2( 25.4557, 26.1629 )
-scale = Vector2( 0.0481005, 0.0477454 )
-z_index = 1
-texture = ExtResource( 5 )
 
 [node name="Panel" type="Panel" parent="HBoxContainer/Temperature"]
 margin_left = 32.8804
@@ -262,3 +298,37 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="HBoxContainer/Temperature"]
+position = Vector2( 25.4557, 26.1629 )
+scale = Vector2( 0.0481005, 0.0477454 )
+texture = ExtResource( 5 )
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair" type="Sprite" parent="Control"]
+texture = ExtResource( 8 )
+
+[node name="Fade" type="ColorRect" parent="."]
+margin_right = 1043.0
+margin_bottom = 610.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 2 )
+anims/FadeOut = SubResource( 3 )
