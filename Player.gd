@@ -32,7 +32,6 @@ var item = ""
 
 var frame = 0
 var pause = false
-var total_logs = 10
 
 func _ready():
 	randomize()
@@ -78,6 +77,11 @@ func _process(delta):
 				$Camera/Spatial/axeAnim.play("Attack")
 		
 		if Input.is_action_just_pressed("shoot") and interact != "":
+			interact_with_object()
+		
+		if weapon == 1 and interact == "Cortar" and Input.is_action_just_pressed("shoot"):
+			#$Camera/Spatial/axeAnim.stop()
+			$Camera/Spatial/axeAnim.play("Attack")
 			interact_with_object()
 		
 		global.water -= .005
@@ -199,6 +203,8 @@ func try_attack():
 			blood.translation = $Camera/Blood.translation
 			blood.emitting = true
 			add_child(blood)
+		if $Camera/AttackRaycast.get_collider().get_parent().get_parent().has_method("cut_tree") :
+			$Camera/AttackRaycast.get_collider().get_parent().get_parent().cut_tree()
 
 func interact_with_object():
 	print(interact)
@@ -220,17 +226,22 @@ func interact_with_object():
 			global.water = 100
 	elif interact == "Pegar":
 		if item == "":
-			item = "log"
-			total_logs -= 1
-			ui.update_item(item)
+			if global.logs > 0:
+				item = "log"
+				ui.update_item(item)
+			else:
+				ui.update_description_text("Não tem lenha suficiente")
 	elif interact == "Fogao":
 		if item == "log":
 			item = ""
 			global.temp += int(rand_range(3, 6))
+			global.logs -= 1
 			ui.update_item(item)
 			ui.update_temperature(global.temp)
 		else:
-			ui.update_description_text("Não tem lenha suficiente")
+			ui.update_description_text("Pegar uma lenha antes")
+	elif interact == "Cortar":
+		pass
 
 func return_shop():
 	$Camera.current = true
@@ -252,7 +263,7 @@ func add_food(value):
 	ui.update_food_bar(global.food)
 
 func add_log(value):
-	total_logs += value
+	global.logs += value
 
 func add_bullets(value):
 	ammo += value
