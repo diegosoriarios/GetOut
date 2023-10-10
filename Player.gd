@@ -144,16 +144,21 @@ func _physics_process(delta):
 		
 		if $Camera/Interact.is_colliding():
 			var collider = $Camera/Interact.get_collider()
+			if collider.name == "Cortar" and weapon == 0:
+				return
 			if collider.is_in_group("interactive"):
 				if collider.name == "Fogao":
 					interact = collider.name
 					ui.update_description_text("Colocar mais lenha")
-				else:	
+				else:
 					interact = collider.name
 					ui.update_description_text(collider.name)
 			else:
 				interact = ""
 				ui.update_description_text("")
+		else:
+			interact = ""
+			ui.update_description_text("")
 
 func shoot():
 	var bullet = bulletScene.instance()
@@ -187,6 +192,7 @@ func add_health(amount):
 
 func add_ammo(amount):
 	ammo += amount
+	ui.update_ammo_text(ammo)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$Camera/AnimationPlayer.stop()

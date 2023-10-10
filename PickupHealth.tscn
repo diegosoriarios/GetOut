@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Models/Pickups/HealthPackModel.dae" type="PackedScene" id=1]
 [ext_resource path="res://Pickup.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Models/Pickups/FirstAidKit_Hard.fbx" type="PackedScene" id=3]
 
 [node name="PickupHealth" instance=ExtResource( 2 )]
 
 [node name="HealthPackModel" parent="." index="1" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 0.676555, 0, 0, 0, 0.704792, 0, 0, 0 )
+visible = false
+
+[node name="FirstAidKit_Hard" parent="." index="2" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, 0, 0 )

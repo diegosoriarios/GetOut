@@ -24,6 +24,9 @@ func _ready():
 	timer.set_wait_time(attackRate)
 	timer.start()
 	
+	$ZombieWalking/AnimationPlayer.playback_speed = 1.5
+	$Zombie/AnimationPlayer.playback_speed = 1.5
+
 	$ZombieWalking/AnimationPlayer.play("ArmaturemixamocomLayer0")
 	$ZombieWalking/AnimationPlayer.get_animation("ArmaturemixamocomLayer0").set_loop(true)
 
@@ -50,7 +53,7 @@ func die():
 		get_parent().add_child(explosion)
 	player.add_score(scoreToGive)
 	var random = rand_range(0, 2)
-	if int(random) == 0:
+	if int(random) == 0 or player.ammo < 5:
 		var bullets = Bullets.instance()
 		bullets.translation = translation
 		get_parent().add_child(bullets)
@@ -75,3 +78,9 @@ func attack():
 func _on_Timer_timeout():
 	if translation.distance_to(player.translation) <= attackDist:
 		attack()
+
+
+func _on_Area_area_entered(area):
+	if (area.is_in_group("bullet")):
+		take_damage(int(rand_range(2,4)))
+		area.headshot()

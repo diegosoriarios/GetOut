@@ -30,11 +30,15 @@ func _process(delta):
 
 func _on_Pickup_body_entered(body):
 	if body.name == "Player":
-		pickup(body)
-		queue_free()
+		if (pickup(body)):
+			queue_free()
 
 func pickup(player):
 	if type == PickupType.Health:
+		if (player.curHp == 100): return false
+		
 		player.add_health(amount)
+		return true
 	elif type == PickupType.Ammo:
 		player.add_ammo(amount)
+		return true

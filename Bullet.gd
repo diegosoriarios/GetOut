@@ -19,3 +19,11 @@ func _on_Bullet_body_entered(body):
 
 func destroy():
 	queue_free()
+
+func headshot():
+	var blood = Blood.instance()
+	blood.translation = translation
+	blood.emitting = true
+	get_parent().add_child(blood)
+	print("headshot")
+	destroy()
